@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/01 18:07:32 by masharla          #+#    #+#             */
-/*   Updated: 2020/12/28 18:39:31 by masharla         ###   ########.fr       */
+/*   Created: 2021/02/19 18:37:34 by masharla          #+#    #+#             */
+/*   Updated: 2021/02/19 18:44:00 by masharla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-char	*ft_strdup(const char *s1)
-{
-	char	*res;
-	char	*str;
-	int		i;
+# include "../srcs/gnl/get_next_line.h"
+# include "cub3d.h"
 
-	i = 0;
-	str = (char *)s1;
-	if (!(res = malloc(sizeof(char) * (ft_strlen(str) + 1))))
-		return (NULL);
-	while (*str)
-		res[i++] = *str++;
-	res[i] = '\0';
-	return (res);
-}
+int		ft_is_map(char *str);
+void	ft_lstclear_save_content(t_list **lst);
+char	*ft_remove_spaces(char *str);
+void	initialize_t_conf(t_conf *config);
+void	clear_t_conf(t_conf *config);
+
+#endif

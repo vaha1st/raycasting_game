@@ -6,13 +6,14 @@
 #    By: masharla <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 01:41:08 by masharla          #+#    #+#              #
-#    Updated: 2021/02/19 15:41:18 by ruslan           ###   ########.fr        #
+#    Updated: 2021/02/19 19:11:34 by ruslan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3d
 
-SRC		= main.c srcs/gnl/get_next_line.c\
+SRC		= main.c srcs/gnl/get_next_line.c \
+	srcs/utils/parser_utils.c srcs/parser.c
 
 BONUS	= 
 

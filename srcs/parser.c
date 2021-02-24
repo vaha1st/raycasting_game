@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:37:07 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/19 19:35:26 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/02/20 17:56:59 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	**make_map(t_list **root, int size)
 		map[i++] = ft_remove_spaces(tmp->content);
 		tmp = tmp->next;
 	}
+	map[i] = NULL;
 	return (map);
 }
 
@@ -101,7 +102,7 @@ int		parse_conf(t_conf *config, t_list *list)
 	return (1);
 }
 
-t_conf	*parser(char *configuration_file)
+t_conf	parser(char *configuration_file)
 {
 	char	*line;
 	t_list	*root;
@@ -121,5 +122,5 @@ t_conf	*parser(char *configuration_file)
 		ft_putstr_fd("Config failed!\n", 1);
 	ft_lstclear(&root, free);
 	close(fd);
-	return (config);
+	return (*config);
 }

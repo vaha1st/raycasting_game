@@ -6,7 +6,7 @@
 #    By: masharla <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 01:41:08 by masharla          #+#    #+#              #
-#    Updated: 2021/02/20 14:33:47 by ruslan           ###   ########.fr        #
+#    Updated: 2021/02/24 23:06:11 by ruslan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,12 @@ all: ${NAME}
 
 clean:
 	$(MAKE) clean -C ./srcs/libft
+	$(MAKE) clean -C ./srcs/minilibx
 	${RM} ${OBJ}
 
 fclean: clean
 	$(MAKE) fclean -C ./srcs/libft
+	$(MAKE) clean -C ./srcs/minilibx
 	${RM} ${NAME}
 
 re: fclean all

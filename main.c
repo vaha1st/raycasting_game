@@ -6,13 +6,13 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:31:03 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/24 23:00:30 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/02/25 16:27:07 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
 
-void			scale_pixel(t_window *window, t_point start, int color)
+void		scale_pixel(t_window *window, t_point start, int color)
 {
 	t_point end;
 
@@ -30,7 +30,7 @@ void			scale_pixel(t_window *window, t_point start, int color)
 	}
 }
 
-void			scale_player(t_window *window, t_player start, int color)
+void		scale_player(t_window *window, t_player start, int color)
 {
 	t_player end;
 
@@ -48,12 +48,32 @@ void			scale_player(t_window *window, t_player start, int color)
 	}
 }
 
-t_player find_player(char **map) {
+float		get_pov_angle(char pov)
+{
+	if (pov == 'N')
+		return (M_PI_2);
+	else if (pov == 'S')
+		return (M_PI);
+	else if (pov == 'W')
+		return (M_PI_2 * 3);
+	else
+		return (0);
+}
+
+void 		init_player(t_player *player)
+{
+	player->pov = 0;
+	player->x = 0;
+	player->y = 0;
+}
+
+t_player	find_player(char **map) {
 	t_player player;
 	int x;
 	int y;
 
 	y = 0;
+	init_player(&player);
 	while (map[y])
 	{
 		x = 0;
@@ -61,9 +81,16 @@ t_player find_player(char **map) {
 		{
 			if (ft_isinset(map[y][x], "SNWE"))
 			{
-				player.x = x;
-				player.y = y;
-				return (player);
+				if (!player.x && !player.y)
+				{
+					player.x = x;
+					player.y = y;
+					player.pov = get_pov_angle(map[y][x]);
+				} else
+				{
+					ft_putstr_fd("Error: Not a single player", 1);
+					exit(0);
+				}
 			}
 			x++;
 		}
@@ -72,7 +99,22 @@ t_player find_player(char **map) {
 	return (player);
 }
 
-void	draw_window(t_global *global)
+void		cast_ray(t_global *global)
+{
+	t_player ray;
+
+	ray = global->player;
+	while (global->config.map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] !=
+	'1')
+	{
+		ray.x += cos(ray.pov);
+		ray.y += sin(ray.pov);
+		mlx_pixel_put(global->window.mlx, global->window.window, ray.x, ray.y,
+				0x990099);
+	}
+}
+
+void		draw_window(t_global *global)
 {
 	t_point point;
 
@@ -89,42 +131,41 @@ void	draw_window(t_global *global)
 		point.y++;
 	}
 	scale_player(&global->window, global->player, 0xF08080);
+	cast_ray(global);
 }
 
-int	key_hook(int keycode, t_global *global)
+int			key_hook(int keycode, t_global *global)
 {
 	ft_putstr_fd("Pressed key is ", 1);
 	ft_putnbr_fd(keycode,1);
 	ft_putchar_fd('\n', 1);
+
 	float step;
 
 	step = 0.2;
-	step *= (keycode == 1 || keycode == 2) ? -1 : 1;
+	step *= (keycode == 13 || keycode == 2 || keycode == 123) ? -1 : 1;
 	if (keycode == 13 || keycode == 1)
 	{
-		keycode = -1;
-		global->player.y -= step;
-		if (global->config.map[(int)round(global->player.y)][(int)round\
-			(global->player.x)] == '1')
-			global->player.y += step;
+		global->player.x += cos(global->player.pov) * step;
+		global->player.y += sin(global->player.pov) * step;
 	}
 	else if (keycode == 0 || keycode == 2)
 	{
-		keycode = -1;
-		global->player.x -= step;
-		if (global->config.map[(int)round(global->player.y)][(int)round\
-			(global->player.x)] == '1')
-			global->player.x += step;
+		global->player.x += cos(global->player.pov + M_PI_2) * step;
+		global->player.y += sin(global->player.pov + M_PI_2) * step;
 	}
-	if (keycode < 0)
+	else if (keycode == 123 || keycode == 124)
 	{
-		mlx_clear_window(global->window.mlx, global->window.window);
-		draw_window(global);
-	}
+		global->player.pov += step;
+	}else
+		return (-1);
+	mlx_clear_window(global->window.mlx, global->window.window);
+	draw_window(global);
+	return (1);
 }
 
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_global global;
 

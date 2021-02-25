@@ -29,6 +29,7 @@ typedef struct	s_player
 {
 	float x;
 	float y;
+	float pov;
 }				t_player;
 
 typedef struct 	s_window

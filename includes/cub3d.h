@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:28:14 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/24 19:02:58 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/02/26 18:28:19 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define CUB3D_H
 
 # define SCALE 24
+# define PLANE 320
+# define FOV M_PI_2
 
 # include "../srcs/libft/libft.h"
 # include "../srcs/minilibx/mlx.h"

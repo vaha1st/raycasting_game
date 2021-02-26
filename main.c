@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:31:03 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/25 16:27:07 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/02/26 20:30:28 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void		scale_player(t_window *window, t_player start, int color)
 float		get_pov_angle(char pov)
 {
 	if (pov == 'N')
-		return (M_PI_2);
-	else if (pov == 'S')
-		return (M_PI);
-	else if (pov == 'W')
 		return (M_PI_2 * 3);
+	else if (pov == 'S')
+		return (M_PI_2);
+	else if (pov == 'W')
+		return (M_PI);
 	else
 		return (0);
 }
@@ -67,7 +67,8 @@ void 		init_player(t_player *player)
 	player->y = 0;
 }
 
-t_player	find_player(char **map) {
+t_player	find_player(char **map)
+{
 	t_player player;
 	int x;
 	int y;
@@ -99,18 +100,30 @@ t_player	find_player(char **map) {
 	return (player);
 }
 
-void		cast_ray(t_global *global)
+void		cast_rays(t_global *global)
 {
 	t_player ray;
+	float start;
+	float end;
 
-	ray = global->player;
-	while (global->config.map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] !=
-	'1')
+	start = global->player.pov - FOV / 2;
+	end = global->player.pov + FOV / 2;
+	while (start <= end)
 	{
-		ray.x += cos(ray.pov);
-		ray.y += sin(ray.pov);
-		mlx_pixel_put(global->window.mlx, global->window.window, ray.x, ray.y,
-				0x990099);
+		ray = global->player;
+		ray.x *= SCALE;
+		ray.y *= SCALE;
+		while (global->config.map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] !=
+		'1')
+		{
+			ray.x += cos(start);
+			ray.y += sin(start);
+			mlx_pixel_put(global->window.mlx, global->window.window,
+						  ray.x,
+						  ray.y,
+						  0x990099);
+		}
+		start += FOV/320;
 	}
 }
 
@@ -131,7 +144,9 @@ void		draw_window(t_global *global)
 		point.y++;
 	}
 	scale_player(&global->window, global->player, 0xF08080);
-	cast_ray(global);
+//	mlx_pixel_put(global->window.mlx, global->window.window, global->player
+//	.x*SCALE, global->player.y*SCALE, 0xF08080);
+	cast_rays(global);
 }
 
 int			key_hook(int keycode, t_global *global)
@@ -143,7 +158,7 @@ int			key_hook(int keycode, t_global *global)
 	float step;
 
 	step = 0.2;
-	step *= (keycode == 13 || keycode == 2 || keycode == 123) ? -1 : 1;
+	step *= (keycode == 1 || keycode == 0 || keycode == 123) ? -1 : 1;
 	if (keycode == 13 || keycode == 1)
 	{
 		global->player.x += cos(global->player.pov) * step;

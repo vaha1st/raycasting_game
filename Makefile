@@ -6,18 +6,19 @@
 #    By: masharla <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 01:41:08 by masharla          #+#    #+#              #
-#    Updated: 2021/02/24 23:06:11 by ruslan           ###   ########.fr        #
+#    Updated: 2021/03/03 14:27:52 by ruslan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3d
 
-SRC		= main.c srcs/gnl/get_next_line.c \
-	srcs/utils/parser_utils.c srcs/parser.c
+SRC		= cub3d.c srcs/gnl/get_next_line.c srcs/utils/parser_utils.c \
+		srcs/parser.c srcs/minimap.c srcs/utils/screen_utils.c \
+		srcs/utils/player_utils.c
 
 BONUS	= 
 
-FH		= includes/cub3d.h
+FH		= includes/*.h
 LIBFT	= ./srcs/libft/libft.a
 MLX		= ./srcs/minilibx/libmlx.a
 FRWKS	= -framework OpenGL -framework Appkit

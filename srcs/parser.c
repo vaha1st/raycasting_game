@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:37:07 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/20 17:56:59 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/02/27 22:29:32 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,36 @@ void	parse_textures(t_list *list, t_conf *config)
 	}
 }
 
+int 	check_map(char **map)
+{
+	int i;
+	int j;
+	int arr_len;
+
+	i = 0;
+	arr_len = -1;
+	while (map[i++])
+		arr_len++;
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '1')
+				if (i == 0 || i == arr_len || !map[i - 1][j - 1] || !map[i - 1]\
+					[j + 1] || !map[i - 1][j] || !map[i + 1][j - 1]\
+					|| !map[i + 1][j + 1] || !map[i + 1][j] || !map[i][j - 1]\
+					|| !map[i][j + 1] || j >= ft_strlen (map[i - 1])\
+					|| j >= ft_strlen(map[i + 1]))
+					return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 int		parse_conf(t_conf *config, t_list *list)
 {
 	t_list *tmp;
@@ -97,7 +127,7 @@ int		parse_conf(t_conf *config, t_list *list)
 	ft_lstclear_save_content(&conf);
 	if (!config->res_x || !config->res_y || !config->north || !config->south\
 		|| !config->north || !config->west || !config->east || !config->sprite\
-		|| !config->floor_c || !config->ceilling_c)
+		|| !config->floor_c || !config->ceilling_c || !check_map(config->map))
 		return (-1);
 	return (1);
 }
@@ -114,7 +144,7 @@ t_conf	parser(char *configuration_file)
 	// file open exception
 	fd = open(configuration_file, O_RDONLY);
 	config = calloc(1, sizeof(t_conf));
-	initialize_t_conf(config);
+	init_t_conf(config);
 	while (get_next_line(fd, &line))
 		ft_list_push_back(&root, line);
 	ft_list_push_back(&root, line);

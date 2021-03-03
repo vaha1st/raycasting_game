@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/19 18:37:34 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/19 18:44:00 by masharla         ###   ########.fr       */
+/*   Created: 2021/03/03 13:58:12 by masharla          #+#    #+#             */
+/*   Updated: 2021/03/03 14:26:53 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "../srcs/gnl/get_next_line.h"
 # include "cub3d.h"
 
-int		ft_is_map(char *str);
-void	ft_lstclear_save_content(t_list **lst);
-char	*ft_remove_spaces(char *str);
-void	init_t_conf(t_conf *config);
-void	clear_t_conf(t_conf *config);
+void		my_mlx_pixel_put(t_window *window, int x, int y, int color);
+void		generate_image(t_global *global, void draw_image(t_global *),\
+	int pos_x, int pos_y);
+void		draw_above_image(t_global *global, void draw_image(t_global *),\
+	int pos_x, int pos_y);
+void 		init_window(t_global *global, int bbp, int l_len, int endian);
+t_player	find_player(char **map);
+void		draw_player_view(t_global *global);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:32:02 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/19 19:31:02 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/02/27 19:02:54 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ char	*ft_remove_spaces(char *str)
 			result[i++] = *str;
 		str++;
 	}
+	result[i] = '\0';
 	return (result);
 }
 
-void	initialize_t_conf(t_conf *config)
+void	init_t_conf(t_conf *config)
 {
 	config->res_x = 0;
 	config->res_y = 0;

@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:37:07 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/27 22:29:32 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/04 14:05:51 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	**make_map(t_list **root, int size)
 	tmp = *root;
 	while (tmp)
 	{
-		map[i++] = ft_remove_spaces(tmp->content);
+//		map[i++] = ft_remove_spaces(tmp->content);
+		map[i++] = ft_strdup(tmp->content);
 		tmp = tmp->next;
 	}
 	map[i] = NULL;
@@ -73,36 +74,6 @@ void	parse_textures(t_list *list, t_conf *config)
 	}
 }
 
-int 	check_map(char **map)
-{
-	int i;
-	int j;
-	int arr_len;
-
-	i = 0;
-	arr_len = -1;
-	while (map[i++])
-		arr_len++;
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '1')
-				if (i == 0 || i == arr_len || !map[i - 1][j - 1] || !map[i - 1]\
-					[j + 1] || !map[i - 1][j] || !map[i + 1][j - 1]\
-					|| !map[i + 1][j + 1] || !map[i + 1][j] || !map[i][j - 1]\
-					|| !map[i][j + 1] || j >= ft_strlen (map[i - 1])\
-					|| j >= ft_strlen(map[i + 1]))
-					return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
 int		parse_conf(t_conf *config, t_list *list)
 {
 	t_list *tmp;
@@ -132,7 +103,7 @@ int		parse_conf(t_conf *config, t_list *list)
 	return (1);
 }
 
-t_conf	parser(char *configuration_file)
+t_conf	*parser(char *configuration_file)
 {
 	char	*line;
 	t_list	*root;
@@ -152,5 +123,5 @@ t_conf	parser(char *configuration_file)
 		ft_putstr_fd("Config failed!\n", 1);
 	ft_lstclear(&root, free);
 	close(fd);
-	return (*config);
+	return (config);
 }

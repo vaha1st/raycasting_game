@@ -6,17 +6,17 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:28:04 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/03 14:14:50 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:54:11 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void 	init_window(t_global *global, int bbp, int l_len, int endian)
+void	init_window(t_global *global, int bbp, int l_len, int endian)
 {
 	global->window.mlx = mlx_init();
 	global->window.window = mlx_new_window(global->window.mlx,\
-			global->config.res_x, global->config.res_y, "Cub3d");
+			global->config->res_x, global->config->res_y, "Cub3d");
 	global->window.bit_per_pixel = bbp;
 	global->window.line_len = l_len;
 	global->window.endian = endian;
@@ -36,8 +36,10 @@ void	my_mlx_pixel_put(t_window *window, int x, int y, int color)
 void	generate_image(t_global *global, void draw_image(t_global *),\
 	int pos_x, int pos_y)
 {
+	if (global->window.image)
+		mlx_destroy_image(global->window.mlx, global->window.image);
 	global->window.image = mlx_new_image(global->window.mlx,\
-			global->config.res_x, global->config.res_y);
+			global->config->res_x, global->config->res_y);
 	global->window.address = mlx_get_data_addr(global->window.image,\
 			&global->window.bit_per_pixel, &global->window.line_len,\
 			&global->window.endian);

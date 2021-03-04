@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:28:14 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/03 14:06:27 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/04 18:09:13 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ typedef struct	s_player
 	float dist;
 }				t_player;
 
-typedef struct 	s_window
+typedef struct	s_window
 {
 	void	*mlx;
 	void	*window;
-	void 	*image;
-	char 	*address;
-	int 	bit_per_pixel;
-	int 	line_len;
+	void	*image;
+	char	*address;
+	int		bit_per_pixel;
+	int		line_len;
 	int		endian;
 }				t_window;
 
@@ -63,11 +63,12 @@ typedef struct	s_conf
 typedef struct	s_global
 {
 	t_player	player;
-	t_conf 		config;
-	t_window 	window;
+	t_conf		*config;
+	t_window	window;
 }				t_global;
 
-t_conf			parser(char *configuration_file);
+t_conf			*parser(char *configuration_file);
 void			draw_minimap(t_global *global);
+void			clear_t_conf(t_conf *config);
 
 #endif

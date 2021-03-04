@@ -14,7 +14,7 @@ NAME	= cub3d
 
 SRC		= cub3d.c srcs/gnl/get_next_line.c srcs/utils/parser_utils.c \
 		srcs/parser.c srcs/minimap.c srcs/utils/screen_utils.c \
-		srcs/utils/player_utils.c
+		srcs/utils/player_utils.c srcs/utils/parser_map_checker.c
 
 BONUS	= 
 

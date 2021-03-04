@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:58:12 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/03 14:26:53 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/03 14:35:51 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		generate_image(t_global *global, void draw_image(t_global *),\
 	int pos_x, int pos_y);
 void		draw_above_image(t_global *global, void draw_image(t_global *),\
 	int pos_x, int pos_y);
-void 		init_window(t_global *global, int bbp, int l_len, int endian);
+void		init_window(t_global *global, int bbp, int l_len, int endian);
 t_player	find_player(char **map);
 void		draw_player_view(t_global *global);
 

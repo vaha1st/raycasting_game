@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:09:32 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/03 14:11:18 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/04 15:45:16 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void		scale_pixel(t_window *window, int x, int y, int color)
 {
-	t_point end;
-	int 	minimap_scale;
+	t_point	end;
+	int		minimap_scale;
 
 	minimap_scale = SCALE / 2;
 	end.x = (x + 1) * minimap_scale;
@@ -34,9 +34,9 @@ void		scale_pixel(t_window *window, int x, int y, int color)
 
 void		minimap_rays(t_global *global, int scale)
 {
-	t_player ray;
-	float start;
-	float end;
+	t_player	ray;
+	float		start;
+	float		end;
 
 	start = global->player.pov - FOV / 2;
 	end = global->player.pov + FOV / 2;
@@ -45,14 +45,14 @@ void		minimap_rays(t_global *global, int scale)
 		ray = global->player;
 		ray.x *= scale;
 		ray.y *= scale;
-		while (global->config.map[(int)(ray.y / scale)][(int)(ray.x / scale)] !=
-			   '1')
+		while (global->config->map[(int)(ray.y / scale)][(int)(ray.x / scale)]\
+		!= '1')
 		{
 			ray.x += cos(start);
 			ray.y += sin(start);
-			my_mlx_pixel_put(&global->window, ray.x, ray.y,0x990099);
+			my_mlx_pixel_put(&global->window, ray.x, ray.y, 0x990099);
 		}
-		start += FOV/PLANE;
+		start += FOV / PLANE;
 	}
 }
 
@@ -61,17 +61,17 @@ void		draw_minimap(t_global *global)
 	t_point point;
 
 	point.y = 0;
-	while(global->config.map[point.y])
+	while (global->config->map[point.y])
 	{
 		point.x = 0;
-		while (global->config.map[point.y][point.x])
+		while (global->config->map[point.y][point.x])
 		{
-			if (global->config.map[point.y][point.x] == '1')
+			if (global->config->map[point.y][point.x] == '1')
 				scale_pixel(&global->window, point.x, point.y, 0x20B2AA);
-			else if (global->config.map[point.y][point.x] == '0')
-				scale_pixel(&global->window, point.x, point.y, 0x3C5C4C);
-			else
+			else if (global->config->map[point.y][point.x] == '2')
 				scale_pixel(&global->window, point.x, point.y, 0xA75C4C);
+			else if (global->config->map[point.y][point.x] != ' ')
+				scale_pixel(&global->window, point.x, point.y, 0x3C5C4C);
 			point.x++;
 		}
 		point.y++;

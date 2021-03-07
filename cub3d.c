@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:31:03 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/04 18:42:15 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/07 15:35:11 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void		make_a_step(t_player *player, char **map, float step, float dir)
 void 		make_a_turn(t_player *player, float step)
 {
 	player->pov += step;
-	if (player->pov < 0)
-		player->pov += 2 * M_PI;
-	if (player->pov > 2 * M_PI)
-		player->pov -= 2 * M_PI;
+	player->pov = adjust_ray_angle(player->pov);
 }
 
 int			key_hook(int keycode, t_global *global)
@@ -53,7 +50,8 @@ int			key_hook(int keycode, t_global *global)
 		make_a_turn(&global->player, step);
 	else
 		return (-1);
-	generate_image(global, draw_player_view, 0, 0);
+	generate_image(global, draw_floor_ceiling, 0, 0);
+	draw_above_image(global, draw_player_view, 0, 0);
 	draw_above_image(global, draw_minimap, 0, 0);
 	return (1);
 }
@@ -67,8 +65,10 @@ int			main(int argc, char **argv)
 		global.config = parser(argv[1]);
 		global.player = find_player(global.config->map);
 		init_window(&global, 24, 24, 0);
-		generate_image(&global, draw_player_view, 0, 0);
+		generate_image(&global, draw_floor_ceiling, 0, 0);
+		draw_above_image(&global, draw_player_view, 0, 0);
 		draw_above_image(&global, draw_minimap, 0, 0);
+//		generate_image(&global, draw_minimap, 0, 0);
 		mlx_key_hook(global.window.window, key_hook, &global);
 		mlx_loop(global.window.mlx);
 	}

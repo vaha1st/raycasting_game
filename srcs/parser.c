@@ -6,19 +6,20 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:37:07 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/04 14:05:51 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/05 18:59:25 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parser.h"
 
-char	**make_map(t_list **root, int size)
+char	**make_map(t_list **root, t_conf *config)
 {
 	char	**map;
 	int		i;
 	t_list	*tmp;
 
-	map = ft_calloc(size + 1, sizeof(char *));
+	config->map_len = ft_lstsize(*root);
+	map = ft_calloc(config->map_len + 1, sizeof(char *));
 	i = 0;
 	tmp = *root;
 	while (tmp)
@@ -93,7 +94,7 @@ int		parse_conf(t_conf *config, t_list *list)
 	}
 	parse_resolution(conf->content, config);
 	parse_textures(conf, config);
-	config->map = make_map(&map, ft_lstsize(map));
+	config->map = make_map(&map, config);
 	ft_lstclear_save_content(&map);
 	ft_lstclear_save_content(&conf);
 	if (!config->res_x || !config->res_y || !config->north || !config->south\

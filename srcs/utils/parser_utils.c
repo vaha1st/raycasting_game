@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:32:02 by masharla          #+#    #+#             */
-/*   Updated: 2021/02/27 19:02:54 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/05 18:59:25 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	init_t_conf(t_conf *config)
 {
 	config->res_x = 0;
 	config->res_y = 0;
+	config->map_len = 0;
 	config->north = NULL;
 	config->south = NULL;
 	config->west = NULL;

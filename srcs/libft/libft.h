@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 01:41:40 by masharla          #+#    #+#             */
-/*   Updated: 2021/01/10 01:08:22 by masharla         ###   ########.fr       */
+/*   Updated: 2021/03/08 01:22:29 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ typedef struct	s_list
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
 int				ft_isalnum(int c);
+int				ft_ispunct(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 char			*ft_itoa(long int n);
+int				ft_isalnumsign(int c);
 int				ft_lstsize(t_list *lst);
 size_t			ft_strlen(const char *s);
 int				ft_atoi(const char *str);

@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:32:02 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/05 18:59:25 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/08 01:30:08 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,18 @@ char	*ft_remove_spaces(char *str)
 	count = 0;
 	i = 0;
 	while (str[i])
-		if (ft_isalnum(str[i++]))
+		if (ft_isalnumsign(str[i++]))
 			count++;
 	i = 0;
 	result = ft_calloc(count + 1, sizeof(char));
 	while (*str)
 	{
-		if (ft_isalnum(*str))
+		if (ft_isalnumsign(*str))
 			result[i++] = *str;
 		str++;
 	}
 	result[i] = '\0';
 	return (result);
-}
-
-void	init_t_conf(t_conf *config)
-{
-	config->res_x = 0;
-	config->res_y = 0;
-	config->map_len = 0;
-	config->north = NULL;
-	config->south = NULL;
-	config->west = NULL;
-	config->east = NULL;
-	config->sprite = NULL;
-	config->floor_c = NULL;
-	config->ceilling_c = NULL;
 }
 
 void	clear_t_conf(t_conf *config)

@@ -6,27 +6,25 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:28:04 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/04 12:54:11 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/09 01:48:51 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	init_window(t_global *global, int bbp, int l_len, int endian)
+int    my_mlx_pixel_get(t_tex *tex, int x, int y)
 {
-	global->window.mlx = mlx_init();
-	global->window.window = mlx_new_window(global->window.mlx,\
-			global->config->res_x, global->config->res_y, "Cub3d");
-	global->window.bit_per_pixel = bbp;
-	global->window.line_len = l_len;
-	global->window.endian = endian;
-	global->window.image = NULL;
-	global->window.address = NULL;
+	char	*dst;
+	int		color;
+
+	dst = tex->addr + (y * tex->l_len + x * (tex->bpp / 8));
+	color = *(int*)dst;
+	return (color);
 }
 
 void	my_mlx_pixel_put(t_window *window, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	dst = window->address + (y * window->line_len + x *\
 		(window->bit_per_pixel / 8));

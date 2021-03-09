@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:37:07 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/05 18:59:25 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/05 18:59:31 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ void	parse_textures(t_list *list, t_conf *config)
 		while (!ft_isalpha(((char *)(tmp->content))[i]))
 			i++;
 		if (!ft_strncmp(&(tmp->content[i]), "NO ", 3))
-			config->north = ft_strdup(&(tmp->content[i + 3]));
+			config->north = ft_remove_spaces(&(tmp->content[i + 3]));
 		else if (!ft_strncmp(&(tmp->content[i]), "SO ", 3))
-			config->south = ft_strdup(&(tmp->content[i + 3]));
+			config->south = ft_remove_spaces(&(tmp->content[i + 3]));
 		else if (!ft_strncmp(&(tmp->content[i]), "WE ", 3))
-			config->west = ft_strdup(&(tmp->content[i + 3]));
+			config->west = ft_remove_spaces(&(tmp->content[i + 3]));
 		else if (!ft_strncmp(&(tmp->content[i]), "EA ", 3))
-			config->east = ft_strdup(&(tmp->content[i + 3]));
+			config->east = ft_remove_spaces(&(tmp->content[i + 3]));
 		else if (!ft_strncmp(&(tmp->content[i]), "S ", 2))
-			config->sprite = ft_strdup(&(tmp->content[i + 2]));
+			config->sprite = ft_remove_spaces(&(tmp->content[i + 2]));
 		else if (!ft_strncmp(&(tmp->content[i]), "F ", 2))
-			config->floor_c = ft_strdup(&(tmp->content[i + 2]));
+			config->floor_c = ft_remove_spaces(&(tmp->content[i + 2]));
 		else if (!ft_strncmp(&(tmp->content[i]), "C ", 2))
-			config->ceilling_c = ft_strdup(&(tmp->content[i + 2]));
+			config->ceilling_c = ft_remove_spaces(&(tmp->content[i + 2]));
 		tmp = tmp->next;
 	}
 }

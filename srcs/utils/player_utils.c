@@ -6,20 +6,12 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:17:42 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/07 02:32:04 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/07 02:44:26 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "../../includes/utils.h"
-
-void		init_player(t_player *player)
-{
-	player->pov = 0;
-	player->x = 0;
-	player->y = 0;
-	player->dist = 100000;
-}
 
 float		get_pov_angle(char pov)
 {

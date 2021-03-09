@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:28:14 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/07 02:21:05 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/09 01:09:13 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,37 @@ typedef struct	s_conf
 	int 	map_len;
 }				t_conf;
 
+typedef struct	s_tex
+{
+	void 	*img;
+	char 	*addr;
+	int 	width;
+	int 	height;
+	int 	bpp;
+	int 	l_len;
+	int 	endian;
+	float 	x;
+	float	y;
+}				t_tex;
+
 typedef struct	s_global
 {
 	t_player	player;
 	t_conf		*config;
 	t_window	window;
+	int 		w_btn;
+	int 		s_btn;
+	int 		a_btn;
+	int 		d_btn;
+	int 		left_btn;
+	int 		right_btn;
+	t_tex		north;
+	t_tex		south;
+	t_tex		west;
+	t_tex		east;
 }				t_global;
 
 t_conf			*parser(char *configuration_file);
-void			draw_minimap(t_global *global);
 void			clear_t_conf(t_conf *config);
 
 #endif

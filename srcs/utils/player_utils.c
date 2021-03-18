@@ -6,17 +6,26 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:17:42 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/07 02:44:26 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/17 00:44:57 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "../../includes/utils.h"
 
-float		get_pov_angle(char pov)
+float			adjust_angle(float angle)
+{
+	if (angle < 0)
+		return (angle + 2 * M_PI);
+	if (angle > 2 * M_PI)
+		return (angle - 2 * M_PI);
+	return (angle);
+}
+
+static float	get_pov_angle(char pov)
 {
 	if (pov == 'N')
-		return (M_PI_2 * 3);
+		return (-2.89661407);
 	else if (pov == 'S')
 		return (M_PI_2);
 	else if (pov == 'W')
@@ -25,7 +34,7 @@ float		get_pov_angle(char pov)
 		return (0);
 }
 
-t_player	find_player(char **map)
+t_player		find_player(t_conf *conf)
 {
 	t_player	player;
 	int			x;
@@ -33,23 +42,23 @@ t_player	find_player(char **map)
 
 	y = -1;
 	init_player(&player);
-	while (map[++y])
+	while (conf->map[++y])
 	{
 		x = -1;
-		while (map[y][++x])
-		{
-			if (ft_isinset(map[y][x], "SNWE"))
+		while (conf->map[y][++x])
+			if (ft_isinset(conf->map[y][x], "SNWE"))
 			{
-				if (!player.x && !player.y)
+				if (player.x < 0 && player.y < 0)
 				{
 					player.x = x + 0.5;
 					player.y = y + 0.5;
-					player.pov = get_pov_angle(map[y][x]);
+					player.pov = get_pov_angle(conf->map[y][x]);
 				}
 				else
-					ft_putstr_fd("Error: Not a single player", 1);
+					clean_exit(conf, 6);
 			}
-		}
 	}
+	if (player.x < 0 || player.y < 0)
+		clean_exit(conf, 6);
 	return (player);
 }

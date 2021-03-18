@@ -6,18 +6,19 @@
 #    By: masharla <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 01:41:08 by masharla          #+#    #+#              #
-#    Updated: 2021/03/09 11:35:16 by ruslan           ###   ########.fr        #
+#    Updated: 2021/03/13 13:35:53 by ruslan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= cub3d
+NAME	= cub3D
 
-SRC		= cub3d.c srcs/gnl/get_next_line.c srcs/utils/parser_utils.c \
+SRC		= srcs/cub3d.c srcs/gnl/get_next_line.c srcs/utils/parser_utils.c \
 		srcs/parser.c srcs/layers/minimap.c srcs/utils/screen_utils.c \
 		srcs/utils/player_utils.c srcs/utils/parser_map_checker.c \
 		srcs/utils/ray_utils.c srcs/layers/floor_ceiling.c \
-		srcs/layers/first_view.c srcs/utils/events.c\
-		srcs/utils/init_structures.c srcs/utils/texture_utils.c
+		srcs/layers/first_view.c srcs/events.c\
+		srcs/utils/init_structures.c srcs/utils/texture_utils.c srcs/save.c\
+		srcs/utils/shutdown.c srcs/sprite.c srcs/utils/events_utils.c
 
 BONUS	= 
 

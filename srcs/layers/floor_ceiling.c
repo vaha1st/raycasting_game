@@ -6,14 +6,14 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 02:39:49 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/08 00:09:53 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/17 22:06:54 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "../../includes/utils.h"
 
-int		retrieve_color(char *color)
+static int	retrieve_color(char *color)
 {
 	int	r;
 	int	g;
@@ -38,7 +38,7 @@ int		retrieve_color(char *color)
 	return (r * 256 * 256 + g * 256 + b);
 }
 
-void 	draw_floor_ceiling(t_global *global)
+void		draw_floor_ceiling(t_global *global)
 {
 	int x;
 	int y;
@@ -46,23 +46,22 @@ void 	draw_floor_ceiling(t_global *global)
 	int ceiling_color;
 
 	floor_color = retrieve_color(global->config->floor_c);
-	ceiling_color = retrieve_color(global->config->ceilling_c);
-
+	ceiling_color = retrieve_color(global->config->ceiling_c);
 	if (floor_color < 0 || ceiling_color < 0)
-		ft_putstr_fd("Error: Wrong floor or/and ceiling color", 1);
+		clean_exit(global->config, 4);
 	y = 0;
 	while (y < global->config->res_y / 2)
 	{
 		x = 0;
 		while (x < global->config->res_x)
-			my_mlx_pixel_put(&global->window, x++, y, ceiling_color);
+			my_mlx_pixel_put(global, x++, y, ceiling_color);
 		y++;
 	}
 	while (y < global->config->res_y)
 	{
 		x = 0;
 		while (x < global->config->res_x)
-			my_mlx_pixel_put(&global->window, x++, y, floor_color);
+			my_mlx_pixel_put(global, x++, y, floor_color);
 		y++;
 	}
 }

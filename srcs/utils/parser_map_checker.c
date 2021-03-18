@@ -6,13 +6,13 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:10:01 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/04 15:22:32 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:52:10 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 
-int		check_element(char **map, int i, int j, int len)
+static int	check_element(char **map, int i, int j, int len)
 {
 	if (i == 0 || i == len || j >= ft_strlen(map[i - 1])\
 		|| j >= ft_strlen(map[i + 1]))
@@ -27,12 +27,14 @@ int		check_element(char **map, int i, int j, int len)
 	return (1);
 }
 
-int		check_map(char **map)
+int			check_map(char **map)
 {
 	int i;
 	int j;
 	int arr_len;
 
+	if (!map)
+		return (0);
 	i = 0;
 	arr_len = -1;
 	while (map[i++])
@@ -43,6 +45,8 @@ int		check_map(char **map)
 		j = 0;
 		while (map[i][j])
 		{
+			if (!ft_strchr(" 012NSWE", map[i][j]))
+				return (0);
 			if (map[i][j] != '1' && map[i][j] != ' ')
 				if (!check_element(map, i, j, arr_len))
 					return (0);

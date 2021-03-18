@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:32:02 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/08 01:30:08 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/14 00:38:52 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,12 @@ char	*ft_remove_spaces(char *str)
 	return (result);
 }
 
-void	clear_t_conf(t_conf *config)
+int		spcs_end(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	free(config->north);
-	free(config->south);
-	free(config->west);
-	free(config->east);
-	free(config->sprite);
-	free(config->floor_c);
-	free(config->ceilling_c);
-	while ((config->map)[i])
-		free((config->map)[i++]);
-	free(config->map);
-	free(config);
+	while (str[i] && !ft_isalpha(str[i]) && !ft_ispunct(str[i]))
+		i++;
+	return (i);
 }

@@ -6,13 +6,13 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:28:04 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/09 01:48:51 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/14 14:58:16 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int    my_mlx_pixel_get(t_tex *tex, int x, int y)
+int		mlx_pixel_get(t_tex *tex, int x, int y)
 {
 	char	*dst;
 	int		color;
@@ -22,12 +22,12 @@ int    my_mlx_pixel_get(t_tex *tex, int x, int y)
 	return (color);
 }
 
-void	my_mlx_pixel_put(t_window *window, int x, int y, int color)
+void	my_mlx_pixel_put(t_global *global, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = window->address + (y * window->line_len + x *\
-		(window->bit_per_pixel / 8));
+	dst = global->window.address + (y * global->window.line_len + x\
+		* (global->window.bit_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -42,8 +42,6 @@ void	generate_image(t_global *global, void draw_image(t_global *),\
 			&global->window.bit_per_pixel, &global->window.line_len,\
 			&global->window.endian);
 	draw_image(global);
-	mlx_put_image_to_window(global->window.mlx, global->window.window,\
-		global->window.image, pos_x, pos_y);
 }
 
 void	draw_above_image(t_global *global, void draw_image(t_global *),\

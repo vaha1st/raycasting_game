@@ -25,7 +25,7 @@ float			adjust_angle(float angle)
 static float	get_pov_angle(char pov)
 {
 	if (pov == 'N')
-		return (-2.89661407);
+		return (M_PI_2 * 3);
 	else if (pov == 'S')
 		return (M_PI_2);
 	else if (pov == 'W')

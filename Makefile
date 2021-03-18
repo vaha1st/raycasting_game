@@ -6,7 +6,7 @@
 #    By: masharla <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 01:41:08 by masharla          #+#    #+#              #
-#    Updated: 2021/03/13 13:35:53 by ruslan           ###   ########.fr        #
+#    Updated: 2021/03/18 18:10:26 by ruslan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ fclean: clean
 	$(MAKE) fclean -C ./srcs/libft
 	$(MAKE) clean -C ./srcs/minilibx
 	${RM} ${NAME}
+	${RM} screenshot.bmp
 
 re: fclean all
 

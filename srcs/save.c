@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:46:03 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 13:13:14 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 17:54:16 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,6 @@ static void	write_pixels(t_global *global, t_bitmap *bmp, int fd)
 	}
 }
 
-static void		bmp_exit(int fd, t_global *global)
-{
-	mlx_destroy_image(global->window.mlx, global->window.image);
-	close(fd);
-	free(global->config);
-	clear_textures(global);
-	exit(0);
-}
-
 void		make_screenshot(t_global *global)
 {
 	int			fd;
@@ -88,6 +79,7 @@ void		make_screenshot(t_global *global)
 	global->window.bit_per_pixel = BPP;
 	global->window.line_len = L_LEN;
 	global->window.endian = ENDIAN;
+	global->window.window = NULL;
 	global->window.image = mlx_new_image(global->window.mlx,\
 			global->config->res_x, global->config->res_y);
 	global->window.address = mlx_get_data_addr(global->window.image,\
@@ -97,5 +89,6 @@ void		make_screenshot(t_global *global)
 	draw_player_view(global);
 	init_bmp_headers(global, &bmp, fd);
 	write_pixels(global, &bmp, fd);
-	bmp_exit(fd, global);
+	close(fd);
+	window_exit(global);
 }

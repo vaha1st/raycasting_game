@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:01:55 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 13:28:39 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 15:19:17 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	draw_stripe(t_global *glob, t_player sprite, int i)
 	int		top;
 	int		bottom;
 	float	step;
-	int 	color;
+	int		color;
 
 	step = glob->sprite.width / sprite.size;
 	glob->sprite.x = i * step;
@@ -128,7 +128,7 @@ void		draw_sprites(t_global *glob, float *dist_buf)
 		j = -1;
 		while (++j < sprs[i].size)
 			if (sprs[i].x_of + j >= 0 && sprs[i].x_of + j < glob->config->res_x)
-				if (dist_buf[(int)sprs[i].x_of + j] / WALL_SCALE > sprs[i].dist)
+				if (dist_buf[(int)sprs[i].x_of + j] > sprs[i].dist)
 					draw_stripe(glob, sprs[i], j);
 	}
 }

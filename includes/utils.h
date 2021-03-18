@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:58:12 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/17 21:48:00 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 15:17:41 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void		draw_above_image(t_global *global, void draw_image(t_global *),\
 	int pos_x, int pos_y);
 void		init_window(t_global *global);
 t_player	find_player(t_conf *conf);
-void		draw_minimap(t_global *global);
+void		draw_minimap(t_global *glob);
 void		draw_player_view(t_global *global);
 float		adjust_angle(float angle);
 t_player	cast_ray(t_global *global, float angle,\
-	t_player init_ray(t_global *, float, int), int scale);
+	t_player init_ray(t_global *, float));
 void		init_buttons(t_global *global);
 void		init_player(t_player *player);
-t_player	init_hor_ray(t_global *global, float angle, int scale);
-t_player	init_ver_ray(t_global *global, float angle, int scale);
+t_player	init_hor_ray(t_global *global, float angle);
+t_player	init_ver_ray(t_global *global, float angle);
 void		init_player(t_player *player);
 void		init_texture(t_tex *tex);
 void		init_textures(t_global *global);

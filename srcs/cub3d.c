@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:31:03 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/15 18:46:36 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 17:48:41 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	check_args(int ac, char **av)
 
 static void	game_loop(t_global *global)
 {
+	mlx_hook(global->window.window, 17, 1L << 2, window_exit, global);
 	mlx_hook(global->window.window, 2, 1L << 0, button_pressed, global);
 	mlx_hook(global->window.window, 3, 1L << 1, button_released, global);
 	mlx_loop_hook(global->window.mlx, move_player, global);

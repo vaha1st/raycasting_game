@@ -1,12 +1,12 @@
 
-R   3000   2000
+R   1000   500
 
 NO srcs/textures/WALL_N.xpm
   SO   ./srcs/textures/WALL_S.xpm
 WE ./srcs/textures/WALL_W.xpm
 
-EA ./srcs/textures/kitty.xpm
-S srcs/textures/sprite_1.xpm
+EA ./srcs/textures/WALL_E.xpm
+S srcs/textures/kitty.xpm
 
 F 220, 100,0
 C    225,30,0

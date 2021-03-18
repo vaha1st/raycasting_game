@@ -6,15 +6,14 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:28:14 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 14:41:48 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 18:05:08 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WALL_SCALE 64
-# define DOF 30 * WALL_SCALE
+# define DOF 30
 # define FOV M_PI / 3
 # define BPP 32
 # define L_LEN 24
@@ -111,5 +110,6 @@ t_conf			*parser(char *configuration_file);
 void			make_screenshot(t_global *global);
 void			clean_exit(t_conf *conf, int err_id);
 void			clear_t_conf(t_conf *config);
+int				window_exit(t_global *global);
 
 #endif

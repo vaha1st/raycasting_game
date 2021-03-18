@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 02:37:52 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 14:39:14 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 15:08:24 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static void		draw_wall(t_global *global, t_player ray, t_tex tex,\
 	int		bottom;
 	float	step;
 
-	height = WALL_SCALE * global->config->res_y / ray.dist *
+	height = global->config->res_y / ray.dist *
 			global->config->res_x / global->config->res_y;
 	step = tex.width / height;
-	tex.x = floor(fmod(ray.x, WALL_SCALE)) * tex.width / WALL_SCALE;
+	tex.x = fmod(ray.x, 1) * tex.width;
 	if (tex.reverse)
 		tex.x = tex.width - tex.x;
 	tex.y = 0;
@@ -90,8 +90,8 @@ void			draw_player_view(t_global *global)
 	i = 0;
 	while (fov.start < fov.end)
 	{
-		h_ray = cast_ray(global, fov.start, init_hor_ray, WALL_SCALE);
-		v_ray = swap_x_y(cast_ray(global, fov.start, init_ver_ray, WALL_SCALE));
+		h_ray = cast_ray(global, fov.start, init_hor_ray);
+		v_ray = swap_x_y(cast_ray(global, fov.start, init_ver_ray));
 		h_ray.pov = fov.start;
 		v_ray.pov = fov.start;
 		dist_buf[i] = select_ray(global, h_ray, v_ray, i);

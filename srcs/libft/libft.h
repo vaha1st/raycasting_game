@@ -77,4 +77,5 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),\
 	void (*del)(void *));
 char			*ft_strnstr(const char *haystack, const char *needle,\
 	size_t len);
+void			mlx_get_screen_size(int *width, int *height);
 #endif

@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:10:01 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 14:52:10 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:54:39 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,18 @@ int			check_map(char **map)
 	arr_len = -1;
 	while (map[i++])
 		arr_len++;
-	i = 0;
-	while (map[i])
+	i = -1;
+	while (map[++i])
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
 			if (!ft_strchr(" 012NSWE", map[i][j]))
 				return (0);
 			if (map[i][j] != '1' && map[i][j] != ' ')
 				if (!check_element(map, i, j, arr_len))
 					return (0);
-			j++;
 		}
-		i++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:33:06 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 13:19:47 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 13:19:57 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ void		init_window(t_global *global)
 	mlx_get_screen_size(&res_x, &res_y);
 	if (global->config->res_x > res_x)
 		global->config->res_x = res_x;
+	else if (global->config->res_x < 100)
+		global->config->res_x = 100;
 	if (global->config->res_y > res_y)
 		global->config->res_y = res_y - 54;
+	else if (global->config->res_y < 100)
+		global->config->res_y = 100;
 	global->window.window = mlx_new_window(global->window.mlx,\
 			global->config->res_x, global->config->res_y, "Cub3d");
 	global->window.bit_per_pixel = BPP;

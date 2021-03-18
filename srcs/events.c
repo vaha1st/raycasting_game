@@ -6,12 +6,22 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:18:52 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/17 21:19:45 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/18 18:15:03 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include "../includes/utils.h"
+
+int			window_exit(t_global *global)
+{
+	mlx_destroy_image(global->window.mlx, global->window.image);
+	free(global->config);
+	clear_textures(global);
+	if (global->window.window)
+		mlx_destroy_window(global->window.mlx, global->window.window);
+	exit(0);
+}
 
 int			button_pressed(int keycode, t_global *global)
 {
@@ -28,7 +38,7 @@ int			button_pressed(int keycode, t_global *global)
 	if (keycode == 124)
 		global->right_btn = 1;
 	if (keycode == 53)
-		exit(0);
+		window_exit(global);
 	return (1);
 }
 

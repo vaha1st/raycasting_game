@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:46:03 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 17:54:16 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/19 18:32:19 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ void		make_screenshot(t_global *global)
 
 	fd = open("./screenshot.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	if (!fd)
-	{
-		ft_putstr_fd("Error: cannot create file", 1);
-		exit(0);
-	}
+		clean_exit(global->config, 7);
+	if (global->config->res_x > 10000 || global->config->res_y > 10000)
+		clean_exit(global->config, 8);
 	global->window.bit_per_pixel = BPP;
 	global->window.line_len = L_LEN;
 	global->window.endian = ENDIAN;

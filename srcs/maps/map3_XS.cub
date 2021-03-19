@@ -1,0 +1,16 @@
+
+R   1000   500
+
+NO srcs/textures/WALL_N.xpm
+  SO   ./srcs/textures/WALL_S.xpm
+WE ./srcs/textures/WALL_W.xpm
+
+EA ./srcs/textures/WALL_E.xpm
+S srcs/textures/kitty.xpm
+
+F 3, 133,98
+C    220,255,250
+
+111
+1N1
+111

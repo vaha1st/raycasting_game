@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:44:47 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/17 22:13:14 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/19 16:28:55 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ static t_tex	new_texture(t_window *win, char *file)
 
 	init_texture(&tex);
 	tex.img = mlx_xpm_file_to_image(win->mlx, file, &tex.width, &tex.height);
+	if (tex.img == NULL)
+		tex.img = mlx_png_file_to_image(win->mlx, file, &tex.width,\
+			&tex.height);
 	if (tex.img != NULL)
 		tex.addr = mlx_get_data_addr(tex.img, &tex.bpp, &tex.l_len, &tex.end);
 	return (tex);

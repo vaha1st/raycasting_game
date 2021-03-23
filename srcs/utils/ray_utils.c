@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:39:06 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 15:12:49 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/22 12:22:41 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_player	init_hor_ray(t_global *global, float angle)
 	float		px;
 	float		py;
 
-	px = global->player.x;
-	py = global->player.y;
+	px = global->plr.x;
+	py = global->plr.y;
 	angle = adjust_angle(angle);
 	if (angle > M_PI)
 	{
@@ -63,8 +63,8 @@ t_player	init_ver_ray(t_global *global, float angle)
 	float		px;
 	float		py;
 
-	px = global->player.x;
-	py = global->player.y;
+	px = global->plr.x;
+	py = global->plr.y;
 	angle = adjust_angle(angle);
 	if (angle > M_PI_2 && angle < M_PI_2 * 3)
 	{
@@ -90,14 +90,14 @@ t_player	cast_ray(t_global *global, float angle,\
 	t_player	result;
 
 	ray = init_ray(global, angle);
-	result.x = global->player.x;
-	result.y = global->player.y;
+	result.x = global->plr.x;
+	result.y = global->plr.y;
 	result.dist = 0;
 	while (result.dist < DOF)
 		if (is_on_map(ray, global->config, '1'))
 		{
 			ray.dist = find_dist(result.x, result.y, ray.x, ray.y)\
-				* cos(angle - global->player.pov);
+				* cos(angle - global->plr.pov);
 			result = ray;
 			break ;
 		}
@@ -106,7 +106,7 @@ t_player	cast_ray(t_global *global, float angle,\
 			ray.x += ray.x_of;
 			ray.y += ray.y_of;
 			result.dist = find_dist(result.x, result.y, ray.x, ray.y)\
-				* cos(angle - global->player.pov);
+				* cos(angle - global->plr.pov);
 		}
 	return (result);
 }

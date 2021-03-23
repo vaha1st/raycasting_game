@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:32:02 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/14 00:38:52 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/20 21:50:48 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,13 @@ int		spcs_end(char *str)
 	while (str[i] && !ft_isalpha(str[i]) && !ft_ispunct(str[i]))
 		i++;
 	return (i);
+}
+
+int		check_config(t_conf *cfg, int check_map)
+{
+	if (cfg->res_x <= 0 || cfg->res_y <= 0 || !cfg->north || !cfg->south\
+		|| !cfg->west || !cfg->east || !cfg->sprite\
+		|| !cfg->floor_c || !cfg->ceiling_c || !check_map)
+		return (-1);
+	return (1);
 }

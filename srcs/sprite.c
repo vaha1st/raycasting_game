@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:01:55 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 15:19:17 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/23 17:03:45 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void		count_sprites(t_global *global)
 	int j;
 	int count;
 
-	i = 0;
+	i = (global->plr.y - DOF > 0) ? global->plr.y - DOF : 0;
 	count = 0;
-	while (global->config->map[i])
+	while (global->config->map[i] && i < global->plr.y + DOF)
 	{
-		j = 0;
-		while (global->config->map[i][j])
+		j = (global->plr.x - DOF > 0) ? global->plr.x - DOF : 0;
+		while (global->config->map[i][j] && j < global->plr.x + DOF)
 		{
 			if (global->config->map[i][j] == '2')
 				count++;
@@ -35,28 +35,33 @@ void		count_sprites(t_global *global)
 	global->count_sprt = count;
 }
 
-static void	sort_sprites(int num, t_player *sprs)
+static void	q_sort_spr(t_player *sprs, int first, int last)
 {
-	int			i;
-	int			j;
+	int			left;
+	int			right;
+	float		middle;
 	t_player	tmp;
 
-	i = 0;
-	while (i < num - 1)
+	left = first;
+	right = last;
+	middle = sprs[(left + right) / 2].dist;
+	if (first >= last)
+		return ;
+	while (left <= right)
 	{
-		j = (num - 1);
-		while (j > i)
+		while (sprs[left].dist > middle)
+			left++;
+		while (sprs[right].dist < middle)
+			right--;
+		if (left <= right)
 		{
-			if ((sprs)[j - 1].dist < (sprs)[j].dist)
-			{
-				tmp = (sprs)[j - 1];
-				(sprs)[j - 1] = (sprs)[j];
-				(sprs)[j] = tmp;
-			}
-			j--;
+			tmp = sprs[left];
+			sprs[left++] = sprs[right];
+			sprs[right--] = tmp;
 		}
-		i++;
 	}
+	q_sort_spr(sprs, first, right);
+	q_sort_spr(sprs, left, last);
 }
 
 static void	draw_stripe(t_global *glob, t_player sprite, int i)
@@ -90,17 +95,22 @@ static void	draw_stripe(t_global *glob, t_player sprite, int i)
 
 static void	init_sprite(t_global *glob, t_player *spr, t_point pnt)
 {
+	float correction;
+
 	spr->x = pnt.x + 0.5;
 	spr->y = pnt.y + 0.5;
-	spr->dist = find_dist(glob->player.x, glob->player.y, spr->x, spr->y);
-	spr->pov = atan2(spr->y - glob->player.y, spr->x - glob->player.x);
-	while (spr->pov - glob->player.pov > M_PI)
+	spr->dist = find_dist(glob->plr.x, glob->plr.y, spr->x, spr->y);
+	spr->pov = atan2(spr->y - glob->plr.y, spr->x - glob->plr.x);
+	while (spr->pov - glob->plr.pov > M_PI)
 		spr->pov -= 2 * M_PI;
-	while (spr->pov - glob->player.pov < -M_PI)
+	while (spr->pov - glob->plr.pov < -M_PI)
 		spr->pov += 2 * M_PI;
+	correction = cos(spr->pov - glob->plr.pov);
+	if (correction > 0.67)
+		spr->dist *= cos(spr->pov - glob->plr.pov);
 	spr->size = glob->config->res_y / spr->dist * glob->config->res_x /
 		glob->config->res_y;
-	spr->x_of = (spr->pov - glob->player.pov) * glob->config->res_x /
+	spr->x_of = (spr->pov - glob->plr.pov) * glob->config->res_x /
 		(FOV) + (glob->config->res_x / 2) - spr->size / 2;
 	spr->y_of = glob->config->res_y / 2 - spr->size / 2;
 }
@@ -113,22 +123,23 @@ void		draw_sprites(t_global *glob, float *dist_buf)
 	int			j;
 
 	i = 0;
-	pnt.y = -1;
-	while (glob->count_sprt && glob->config->map[++pnt.y])
+	pnt.y = (glob->plr.y - DOF - 1 > 0) ? glob->plr.y - DOF - 1 : -1;
+	while (glob->config->map[++pnt.y] && pnt.y < glob->plr.y + DOF)
 	{
-		pnt.x = -1;
-		while (glob->config->map[pnt.y][++pnt.x])
+		pnt.x = (glob->plr.x - DOF - 1 > 0) ? glob->plr.x - DOF - 1 : -1;
+		while (glob->config->map[pnt.y][++pnt.x] && pnt.x < glob->plr.x + DOF)
 			if (glob->config->map[pnt.y][pnt.x] == '2')
 				init_sprite(glob, &sprs[i++], pnt);
 	}
-	sort_sprites(glob->count_sprt, sprs);
+	q_sort_spr(sprs, 0, glob->count_sprt - 1);
 	i = -1;
 	while (++i < glob->count_sprt)
 	{
 		j = -1;
 		while (++j < sprs[i].size)
 			if (sprs[i].x_of + j >= 0 && sprs[i].x_of + j < glob->config->res_x)
-				if (dist_buf[(int)sprs[i].x_of + j] > sprs[i].dist)
+				if (dist_buf[(int)sprs[i].x_of + j] > sprs[i].dist\
+					|| !dist_buf[(int)sprs[i].x_of + j])
 					draw_stripe(glob, sprs[i], j);
 	}
 }

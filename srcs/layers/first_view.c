@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 02:37:52 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 15:08:24 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/23 16:13:22 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,29 @@ static t_player	swap_x_y(t_player ray)
 	return (result);
 }
 
+static void		find_tex_x(t_player ray, t_tex *tex)
+{
+	tex->x = fmod(ray.x, 1) * tex->width;
+	if (tex->reverse)
+		tex->x = tex->width - tex->x;
+	if (tex->x < 2)
+		tex->x = floor(tex->x);
+	if (tex->x > tex->width - 1)
+		tex->x = tex->width;
+}
+
 static void		draw_wall(t_global *global, t_player ray, t_tex tex,\
 	int ray_num)
 {
 	float	height;
-	int		top;
-	int		bottom;
+	float	top;
+	float	bottom;
 	float	step;
 
 	height = global->config->res_y / ray.dist *
 			global->config->res_x / global->config->res_y;
 	step = tex.width / height;
-	tex.x = fmod(ray.x, 1) * tex.width;
-	if (tex.reverse)
-		tex.x = tex.width - tex.x;
+	find_tex_x(ray, &tex);
 	tex.y = 0;
 	if (height > global->config->res_y)
 	{
@@ -73,7 +82,7 @@ static float	select_ray(t_global *global, t_player h_ray,\
 			draw_wall(global, v_ray, global->east, i);
 		return (v_ray.dist);
 	}
-	return (global->player.dist);
+	return (global->plr.dist);
 }
 
 void			draw_player_view(t_global *global)
@@ -85,10 +94,10 @@ void			draw_player_view(t_global *global)
 	int			i;
 
 	count_sprites(global);
-	fov.start = global->player.pov - FOV / 2;
-	fov.end = global->player.pov + FOV / 2 - FOV / global->config->res_x;
+	fov.start = global->plr.pov - FOV / 2;
+	fov.end = global->plr.pov + FOV / 2 - FOV / global->config->res_x;
 	i = 0;
-	while (fov.start < fov.end)
+	while (fov.start < fov.end && i <= global->config->res_x)
 	{
 		h_ray = cast_ray(global, fov.start, init_hor_ray);
 		v_ray = swap_x_y(cast_ray(global, fov.start, init_ver_ray));

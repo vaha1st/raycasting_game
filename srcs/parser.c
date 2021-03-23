@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:37:07 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/17 22:01:43 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/20 21:53:16 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,15 @@ static int		parse_conf(t_conf *cfg, t_list *list)
 			ft_list_push_back(&map, tmp->content);
 		else if (!ft_is_map(tmp->content) && !map)
 			ft_list_push_back(&conf, tmp->content);
+		else if (map && ft_is_map(tmp->content) < 0)
+			break ;
 		tmp = tmp->next;
 	}
 	parse_textures(conf, cfg, i);
 	cfg->map = make_map(&map, cfg);
 	ft_lstclear_save_content(&map);
 	ft_lstclear_save_content(&conf);
-	if (cfg->res_x <= 0 || cfg->res_y <= 0 || !cfg->north || !cfg->south\
-		|| !cfg->north || !cfg->west || !cfg->east || !cfg->sprite\
-		|| !cfg->floor_c || !cfg->ceiling_c || !check_map(cfg->map))
-		return (-1);
-	return (1);
+	return (check_config(cfg, check_map(cfg->map)));
 }
 
 t_conf			*parser(char *configuration_file)

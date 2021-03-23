@@ -6,7 +6,7 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:46:03 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/19 18:32:19 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/22 17:10:30 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ void		make_screenshot(t_global *global)
 	int			fd;
 	t_bitmap	bmp;
 
+	if (global->config->res_x > 15000 || global->config->res_y > 15000)
+		clean_exit(global->config, 8);
 	fd = open("./screenshot.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	if (!fd)
 		clean_exit(global->config, 7);
-	if (global->config->res_x > 10000 || global->config->res_y > 10000)
-		clean_exit(global->config, 8);
 	global->window.bit_per_pixel = BPP;
 	global->window.line_len = L_LEN;
 	global->window.endian = ENDIAN;

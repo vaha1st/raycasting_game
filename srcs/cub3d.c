@@ -52,7 +52,7 @@ int			main(int argc, char **argv)
 	{
 		init_buttons(&global);
 		global.config = parser(argv[1]);
-		global.player = find_player(global.config);
+		global.plr = find_player(global.config);
 		init_textures(&global);
 		if (args == 2)
 			make_screenshot(&global);

@@ -22,5 +22,6 @@ char	*ft_remove_spaces(char *str);
 int		check_map(char **map);
 void	clear_t_conf(t_conf *config);
 int		spcs_end(char *str);
+int		check_config(t_conf *cfg, int check_map);
 
 #endif

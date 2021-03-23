@@ -6,14 +6,14 @@
 /*   By: masharla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:28:14 by masharla          #+#    #+#             */
-/*   Updated: 2021/03/18 18:05:08 by ruslan           ###   ########.fr       */
+/*   Updated: 2021/03/22 19:06:04 by ruslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define DOF 30
+# define DOF 100
 # define FOV M_PI / 3
 # define BPP 32
 # define L_LEN 24
@@ -89,7 +89,7 @@ typedef struct	s_tex
 
 typedef struct	s_global
 {
-	t_player	player;
+	t_player	plr;
 	t_conf		*config;
 	t_window	window;
 	int			w_btn;

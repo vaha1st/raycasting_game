@@ -45,7 +45,7 @@ static void	additional_errors(t_conf *conf, int err_id)
 	if (err_id == 6)
 	{
 		clear_t_conf(conf);
-		ft_putstr_fd("Error\nInvalid player placement", 2);
+		ft_putstr_fd("Error\nInvalid plr placement", 2);
 	}
 	if (err_id == 7)
 	{
@@ -55,7 +55,7 @@ static void	additional_errors(t_conf *conf, int err_id)
 	if (err_id == 8)
 	{
 		clear_t_conf(conf);
-		ft_putstr_fd("Error\nNice try :) 10K limit", 2);
+		ft_putstr_fd("Error\nNice try :) 15K limit", 2);
 	}
 }
 
